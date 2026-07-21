@@ -1,0 +1,6 @@
+{
+  "name": "Astro Sadhguru Mantra",
+  "description": "Premium 3D Astrology portal offering Daily & Monthly Horoscopes, Life & Love readings, Wealth & Finance guidance, and Real-time consultations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
