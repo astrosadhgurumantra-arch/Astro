@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Heart, Sparkles, Compass, MessageCircle, HelpCircle, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { zodiacSigns } from "../data/zodiacs";
+import loveImgSrc from "../assets/images/love_celestial_1784593277976.jpg";
 
 export default function LifeAndLoveSection() {
   const [showDeepDive, setShowDeepDive] = useState(false);
@@ -10,9 +11,6 @@ export default function LifeAndLoveSection() {
   const [gunaScore, setGunaScore] = useState<number | null>(null);
   const [gunaFeedback, setGunaFeedback] = useState("");
   const [isCalculating, setIsCalculating] = useState(false);
-
-  // Love compatibility image from generated asset path
-  const loveImgSrc = "/src/assets/images/love_celestial_1784593277976.jpg";
 
   // Simulate Vedic Ashtakoot (Guna Milan) calculations
   const handleCalculateGuna = () => {

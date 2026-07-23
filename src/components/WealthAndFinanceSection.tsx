@@ -1,9 +1,8 @@
 import { CircleDollarSign, Coins, TrendingUp, Sparkles, MessageCircle, HelpCircle } from "lucide-react";
 import { motion } from "motion/react";
+import wealthImgSrc from "../assets/images/wealth_celestial_1784593288813.jpg";
 
 export default function WealthAndFinanceSection() {
-  // Wealth image from generated asset path
-  const wealthImgSrc = "/src/assets/images/wealth_celestial_1784593288813.jpg";
 
   const financialHouses = [
     {

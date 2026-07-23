@@ -25,6 +25,7 @@ import LifeAndLoveSection from "./components/LifeAndLoveSection";
 import WealthAndFinanceSection from "./components/WealthAndFinanceSection";
 import AppointmentBooking from "./components/AppointmentBooking";
 import Consultation from "./components/Consultation";
+import logoImg from "./assets/images/spiritual_logo_triskelion_1784656467125.jpg";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<"home" | "horoscope" | "love" | "wealth" | "consultation" | "book">("home");
@@ -65,7 +66,7 @@ export default function App() {
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] group-hover:shadow-[0_0_25px_rgba(245,158,11,0.8)] transition-all duration-300 group-hover:scale-105 overflow-hidden border border-amber-500/40 relative">
               <div className="absolute inset-0 bg-amber-500/20 mix-blend-overlay pointer-events-none group-hover:bg-amber-400/30 transition-colors duration-300"></div>
               <img 
-                src="/src/assets/images/spiritual_logo_triskelion_1784656467125.jpg" 
+                src={logoImg} 
                 alt="Astro Sadhguru Mantra Logo" 
                 className="w-full h-full object-cover scale-[1.1]" 
                 referrerPolicy="no-referrer" 
@@ -484,7 +485,7 @@ export default function App() {
             <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
               <span className="w-8 h-8 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(245,158,11,0.3)] overflow-hidden border border-amber-500/40">
                 <img 
-                  src="/src/assets/images/spiritual_logo_triskelion_1784656467125.jpg" 
+                  src={logoImg} 
                   alt="Astro Sadhguru Mantra Logo" 
                   className="w-full h-full object-cover scale-[1.1]" 
                   referrerPolicy="no-referrer" 
