@@ -54,37 +54,50 @@ export default function App() {
       <Starfield />
 
       {/* TOP DESKTOP HEADER BAR */}
-      <header className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-amber-500/20 px-4 py-3 sm:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+      <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-xl border-b border-amber-500/10 px-4 py-3 sm:px-6 shadow-[0_10px_35px_rgba(4,4,12,0.8)] relative">
+        {/* Divine Horizon bottom gradient line */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+        
+        {/* Soft top border line with glowing golden sky ambience */}
+        <div className="absolute top-0 left-1/6 right-1/6 h-[1px] bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent" />
+
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           
           {/* Spiritual Logo */}
           <button 
             id="brand-logo-btn"
             onClick={() => setActiveTab("home")}
-            className="flex items-center gap-3 text-left cursor-pointer group"
+            className="flex items-center gap-3 text-left cursor-pointer group relative"
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] group-hover:shadow-[0_0_25px_rgba(245,158,11,0.8)] transition-all duration-300 group-hover:scale-105 overflow-hidden border border-amber-500/40 relative">
-              <div className="absolute inset-0 bg-amber-500/20 mix-blend-overlay pointer-events-none group-hover:bg-amber-400/30 transition-colors duration-300"></div>
+            {/* Outer golden spiritual aura ring that pulses on hover */}
+            <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-amber-500/30 to-yellow-600/30 blur-sm opacity-40 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.4)] group-hover:shadow-[0_0_25px_rgba(245,158,11,0.7)] transition-all duration-500 group-hover:scale-105 overflow-hidden border border-amber-500/30 relative z-10 bg-slate-900">
+              <div className="absolute inset-0 bg-amber-500/15 mix-blend-overlay pointer-events-none group-hover:bg-amber-400/25 transition-colors duration-300"></div>
               <img 
                 src={logoImg} 
                 alt="Astro Sadhguru Mantra Logo" 
-                className="w-full h-full object-cover scale-[1.1]" 
+                className="w-full h-full object-cover scale-[1.05] group-hover:scale-[1.12] transition-transform duration-700" 
                 referrerPolicy="no-referrer" 
               />
             </div>
-            <div>
-              <h1 className="text-base sm:text-xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-300 to-yellow-500 font-serif drop-shadow-sm">
+            
+            <div className="relative z-10">
+              <h1 className="text-base sm:text-xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-300 to-yellow-500 font-serif drop-shadow-md select-none">
                 Astro Sadhguru Mantra
               </h1>
-              <span className="text-[9px] sm:text-[10px] text-amber-500/80 font-mono tracking-widest uppercase block mt-0.5">
-                Vedic Astrology & Remedies
-              </span>
+              <div className="flex items-center gap-1 mt-0.5">
+                <span className="text-[9px] sm:text-[10px] text-amber-500/80 font-mono tracking-[0.2em] uppercase block">
+                  Vedic Astrology & Remedies
+                </span>
+                <Sparkles className="w-2.5 h-2.5 text-amber-400/80 animate-pulse hidden sm:inline" />
+              </div>
             </div>
           </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {tabs.map((tab) => {
+          {/* Desktop Navigation Floating Dock */}
+          <nav className="hidden lg:flex items-center gap-1.5 bg-slate-900/60 border border-amber-500/10 rounded-full px-2 py-1 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
+            {tabs.filter(tab => tab.id !== "home").map((tab) => {
               const IconComponent = tab.icon;
               const isActive = activeTab === tab.id;
               return (
@@ -92,47 +105,63 @@ export default function App() {
                   key={tab.id}
                   id={`nav-tab-${tab.id}`}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-300 flex items-center gap-1.5 cursor-pointer select-none
+                  className={`relative px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-colors duration-300 flex items-center gap-1.5 cursor-pointer select-none
                     ${
                       isActive
-                        ? "bg-amber-500/10 text-amber-300 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.1)]"
-                        : "text-slate-400 hover:text-slate-100 hover:bg-slate-900/50"
+                        ? "text-amber-200"
+                        : "text-slate-400 hover:text-slate-200"
                     }`}
                 >
-                  <IconComponent className="w-3.5 h-3.5" />
-                  {tab.label}
+                  <IconComponent className="w-3.5 h-3.5 relative z-10" />
+                  <span className="relative z-10">{tab.label}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTabPill"
+                      className="absolute inset-0 bg-gradient-to-r from-amber-500/15 to-yellow-600/10 border border-amber-500/30 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.12)]"
+                      transition={{ type: "spring", stiffness: 350, damping: 26 }}
+                    />
+                  )}
                 </button>
               );
             })}
           </nav>
 
-          {/* Direct WhatsApp Call to Action Header Button */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Premium Direct WhatsApp Helpline */}
+          <div className="hidden sm:flex items-center gap-2 bg-slate-900/40 border border-amber-500/15 rounded-full p-1 pl-3.5 backdrop-blur-md shadow-[0_4px_20px_rgba(4,4,12,0.4),inset_0_1px_1px_rgba(255,255,255,0.03)] hover:border-amber-500/30 hover:bg-slate-900/60 transition-all duration-300">
+            <div className="text-right text-[10px] font-mono text-slate-400 hidden md:block pr-3 border-r border-amber-500/10">
+              <div className="flex items-center justify-end gap-1.5 text-slate-500">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                </span>
+                <span className="text-[9px] uppercase tracking-wider text-slate-400">Divine Helpline</span>
+              </div>
+              <span className="text-amber-400 font-bold tracking-wider">{contactWhatsAppFormatted}</span>
+            </div>
             <a
               id="header-whatsapp-connect"
               href={`https://wa.me/${contactWhatsApp}?text=Hare%20Krishna%21%20I%20am%20visiting%20the%20Astro%20Sadhguru%20Mantra%20portal%20and%20would%20like%20to%20receive%20a%20personal%20reading.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.2)] transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              className="px-4.5 py-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs flex items-center gap-2 shadow-[0_2px_10px_rgba(16,185,129,0.3)] hover:shadow-[0_4px_20px_rgba(16,185,129,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn"
             >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              {/* Dynamic subtle white light shimmer shine on hover */}
+              <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-shimmer pointer-events-none" />
+              
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
               </svg>
-              <span>WhatsApp Chat</span>
+              <span>Connect Live</span>
             </a>
-            <div className="text-right text-[10px] font-mono text-slate-400 hidden md:block">
-              <span className="block text-slate-500">Fast Priority Helpline</span>
-              <span className="text-amber-400 font-semibold">{contactWhatsAppFormatted}</span>
-            </div>
           </div>
 
           {/* Mobile Menu Toggle Button */}
           <button
             id="mobile-menu-toggle-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-slate-300 p-1.5 rounded-lg hover:bg-slate-900/80 cursor-pointer"
+            className="lg:hidden text-slate-300 p-2.5 rounded-full hover:bg-slate-900/80 border border-slate-800/60 hover:border-amber-500/30 transition-all duration-300 cursor-pointer"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
         </div>
@@ -143,13 +172,16 @@ export default function App() {
         {mobileMenuOpen && (
           <motion.div
             id="mobile-menu-drawer"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-slate-950 border-b border-slate-900 absolute w-full left-0 z-30 overflow-hidden shadow-2xl"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="lg:hidden bg-slate-950/95 backdrop-blur-2xl border-b border-amber-500/15 absolute w-full left-0 z-30 overflow-hidden shadow-[0_20px_50px_rgba(4,4,12,0.9)]"
           >
-            <div className="px-4 py-4 space-y-2">
-              {tabs.map((tab) => {
+            {/* Glowing inner border line for mobile drawer */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
+
+            <div className="px-5 py-5 space-y-2">
+              {tabs.filter(tab => tab.id !== "home").map((tab) => {
                 const IconComponent = tab.icon;
                 const isActive = activeTab === tab.id;
                 return (
@@ -160,33 +192,33 @@ export default function App() {
                       setActiveTab(tab.id as any);
                       setMobileMenuOpen(false);
                     }}
-                    className={`w-full px-4 py-3 rounded-xl text-xs font-bold tracking-wider uppercase text-left flex items-center gap-2.5 transition-all cursor-pointer
+                    className={`w-full px-4 py-3.5 rounded-xl text-xs font-bold tracking-wider uppercase text-left flex items-center gap-3 transition-all duration-300 cursor-pointer border
                       ${
                         isActive
-                          ? "bg-amber-500/10 text-amber-300 border border-amber-500/20"
-                          : "text-slate-400 hover:text-white"
+                          ? "bg-gradient-to-r from-amber-500/15 to-yellow-600/5 text-amber-200 border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.08)]"
+                          : "text-slate-400 hover:text-white hover:bg-slate-900/40 border-transparent"
                       }`}
                   >
-                    <IconComponent className="w-4.5 h-4.5" />
-                    {tab.label}
+                    <IconComponent className={`w-4 h-4 ${isActive ? "text-amber-400 animate-pulse" : "text-slate-400"}`} />
+                    <span>{tab.label}</span>
                   </button>
                 );
               })}
 
-              <div className="pt-4 border-t border-slate-900 grid grid-cols-2 gap-2 text-center text-xs font-mono text-slate-400">
+              <div className="pt-5 mt-4 border-t border-slate-900 grid grid-cols-2 gap-3 text-center text-xs font-mono">
                 <a
                   id="mobile-whatsapp-btn"
-                  href={`https://wa.me/${contactWhatsApp}`}
+                  href={`https://wa.me/${contactWhatsApp}?text=Hare%20Krishna%21%20I%20am%20visiting%20the%20Astro%20Sadhguru%20Mantra%20portal%20and%20would%20like%20to%20receive%20a%20personal%20reading.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="px-3 py-3 rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/25 border border-emerald-500/30 text-emerald-300 font-bold flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_12px_rgba(16,185,129,0.05)] hover:from-emerald-500 hover:to-emerald-600 hover:text-slate-950 transition-all duration-300"
                 >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  WhatsApp Help
+                  <MessageCircle className="w-4.5 h-4.5 fill-current" />
+                  <span>WhatsApp Help</span>
                 </a>
-                <div className="p-2 text-[10px] text-amber-500/80 flex flex-col justify-center border border-slate-900 bg-slate-900/20 rounded-lg">
-                  <span>Helpline</span>
-                  <span className="font-bold">{contactWhatsAppFormatted}</span>
+                <div className="p-3 text-[10px] text-amber-500/80 flex flex-col justify-center border border-amber-500/10 bg-gradient-to-r from-amber-500/5 to-transparent rounded-xl">
+                  <span className="text-slate-500 text-[9px] uppercase tracking-wider block mb-0.5">Helpline Support</span>
+                  <span className="font-bold tracking-wide text-amber-400">{contactWhatsAppFormatted}</span>
                 </div>
               </div>
             </div>
