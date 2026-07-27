@@ -11,7 +11,8 @@ import {
   Grid,
   MapPin,
   Menu,
-  X
+  X,
+  Sun
 } from "lucide-react";
 
 import { zodiacSigns } from "./data/zodiacs";
@@ -25,10 +26,11 @@ import LifeAndLoveSection from "./components/LifeAndLoveSection";
 import WealthAndFinanceSection from "./components/WealthAndFinanceSection";
 import AppointmentBooking from "./components/AppointmentBooking";
 import Consultation from "./components/Consultation";
+import { PanchangSection } from "./components/PanchangSection";
 import logoImg from "./assets/images/spiritual_logo_triskelion_1784656467125.jpg";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<"home" | "horoscope" | "love" | "wealth" | "consultation" | "book">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "horoscope" | "love" | "wealth" | "consultation" | "book" | "panchang">("home");
   const [selectedSign, setSelectedSign] = useState<ZodiacSign | null>(zodiacSigns[0]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -41,6 +43,7 @@ export default function App() {
 
   const tabs = [
     { id: "home", label: "Temple Home", icon: Grid },
+    { id: "panchang", label: "Panchang", icon: Sun },
     { id: "horoscope", label: "Horoscopes", icon: Calendar },
     { id: "love", label: "Life & Love", icon: Heart },
     { id: "wealth", label: "Wealth & Finance", icon: Star },
@@ -504,6 +507,29 @@ export default function App() {
               </div>
 
               <AppointmentBooking />
+            </motion.section>
+          )}
+
+          {/* TAB 7: DAILY VEDIC PANCHANG SECTION */}
+          {activeTab === "panchang" && (
+            <motion.section
+              key="panchang-section"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              className="px-4 animate-fadeIn"
+            >
+              <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
+                <span className="text-xs text-amber-500 font-mono tracking-widest uppercase block">
+                  ✨ Luni-Solar Vedic Almanac ✨
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-amber-100">Daily Astro Panchang</h2>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Align with the cosmic clock. Access daily calculated Tithi, Nakshatra, Yoga, Karana, Vara, Rahu Kaal, and Abhijit Muhurta timings for your coordinates.
+                </p>
+              </div>
+
+              <PanchangSection />
             </motion.section>
           )}
 

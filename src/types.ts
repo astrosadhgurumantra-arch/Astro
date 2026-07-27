@@ -33,3 +33,37 @@ export interface ChatMessage {
   text: string;
   timestamp: Date;
 }
+
+export interface PanchangElement {
+  name: string;
+  sanskritName: string;
+  deityOrPlanet: string;
+  description: string;
+}
+
+export interface PanchangData {
+  date: string;
+  location: string;
+  tithi: PanchangElement;
+  nakshatra: PanchangElement;
+  yoga: PanchangElement;
+  karana: PanchangElement;
+  vara: PanchangElement;
+  timings: {
+    sunrise: string;
+    sunset: string;
+    moonrise: string;
+    moonset: string;
+    abhijitMuhurta: string;
+    rahuKaal: string;
+    amritKaal: string;
+    brahmaMuhurta: string;
+  };
+  cosmicGuidance: {
+    summary: string;
+    auspiciousActivities: string[];
+    avoidActivities: string[];
+    sadhguruMantra: string;
+    ritualAdvice: string;
+  };
+}
